@@ -5,6 +5,7 @@ export default function Home() {
     <div style={{padding: 20}}>
       <h1>Voucher PWA App</h1>
       <p>Welcome to the system</p>
+      <p>This is a group project</p>
     </div>
   );
 }
