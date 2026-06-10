@@ -1,3 +1,5 @@
+// Page were REGGIE VAUDIN Will make the main page what the user sees first
+
 export default function Home() {
   return (
     <div style={{padding: 20}}>
