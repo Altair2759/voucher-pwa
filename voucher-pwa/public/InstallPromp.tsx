@@ -8,13 +8,19 @@ import { useEffect, useState } from "react";
 
 //component definition 
 export default function InstallPrompt() {
+  // Detect Firefox (Firefox does NOT support beforeinstallprompt)
+  const isFirefox = typeof navigator !== "undefined" && navigator.userAgent.includes("Firefox");
+
   //state variables
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showButton, setShowButton] = useState(false);
 
   //useEffect — Listen for Install Prompt Event
   useEffect(() => {
-    const handler = (e: any) => {//start andler function
+    if (isFirefox) return; // Firefox will never fire the event
+
+    const handler = (e: any) => {//start handler function
+      console.log("beforeinstallprompt fired"); // debug
       e.preventDefault();
       setDeferredPrompt(e);
       setShowButton(true);
@@ -23,7 +29,7 @@ export default function InstallPrompt() {
     window.addEventListener("beforeinstallprompt", handler);
 
     return () => window.removeEventListener("beforeinstallprompt", handler);
-  }, []);//empty dependency array means this effect runs once when the component mounts
+  }, [isFirefox]);//runs once when component mounts
 
   //installApp function
   const installApp = async () => {
@@ -35,6 +41,26 @@ export default function InstallPrompt() {
     setDeferredPrompt(null);
     setShowButton(false);
   };//end installApp function
+
+  // If Firefox → show a helpful message instead of nothing
+  if (isFirefox) {
+    return (
+      <div
+        className="
+        fixed bottom-4 right-4
+        px-5 py-2
+        text-blue-600 font-semibold
+        rounded-xl
+        backdrop-blur-xl
+        bg-white/20
+        border border-white/30
+        shadow-lg
+        "
+      >
+        Firefox does not support app installation. Use Chrome or Edge.
+      </div>
+    );
+  }
 
   //conditional rendering of the install button
   if (!showButton) return null;
