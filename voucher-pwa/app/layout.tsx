@@ -20,6 +20,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Voucher PWA",
   description: "Voucher PWA Team Project",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
