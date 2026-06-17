@@ -41,7 +41,7 @@ export default function Home() {
       <Button text="Small" onClick={() => alert("Small Button works!!")} type="small"/> */}
         
       <div className="flex flex-col items-center mb-10">
-        <h1 className="text-3xl font-bold mb-4">Great deals Just for You</h1>
+        <h1 className="text-3xl font-bold mb-4 ">Great deals Just for You</h1>
         <p className="text-zinc-500 mb-6">Find, redeem and manage your vouchers easily.</p>
 
         <Button text="Browse Vouchers" onClick={() => {location.href = "/redeem"}} />
@@ -52,22 +52,22 @@ export default function Home() {
       <div className="flex items-center mt-7">
         
 
-        <button onClick={() => {location.href = "/redeem"}} className="flex flex-col justify-center items-center text-center min-w-25 bg-zinc-100 rounded-lg h-40 ml-5">
+        <button onClick={() => {location.href = "/redeem"}} className="flex flex-col justify-center items-center text-center min-w-25 bg-zinc-100 rounded-lg h-40 ml-5 p-2">
           <MdOutlineQrCodeScanner className="text-5xl mb-2"/>
           <h1 className="text-lg">Scan QR</h1>
-          <p className="text-zinc-400 text-sm">To Redeem</p>
+          <p className="text-zinc-400 text-sm w-20">To Redeem</p>
         </button>
 
-        <button onClick={() => {location.href = "/redeem"}} className="flex flex-col justify-center items-center text-center min-w-25 bg-zinc-100 rounded-lg h-40 ml-5">
-          <FaHistory className="text-4xl mb-2"/>
+        <button onClick={() => {location.href = "/redeem"}} className="flex flex-col justify-center items-center text-center min-w-25 bg-zinc-100 rounded-lg h-40 ml-5 px-2">
+          <FaHistory className="text-4xl mb-2 mt-2"/>
           <h1 className="text-lg">My History</h1>
-          <p className="text-zinc-400 text-sm">View redeemed vouchers</p>
+          <p className="text-zinc-400 text-sm w-25">View redeemed vouchers</p>
         </button>
 
-        <button onClick={() => {location.href = "/redeem"}} className="flex flex-col justify-center items-center text-center min-w-25 bg-zinc-100 rounded-lg h-40 ml-5 mr-5">
+        <button onClick={() => {location.href = "/redeem"}} className="flex flex-col justify-center items-center text-center min-w-25 bg-zinc-100 rounded-lg h-40 ml-5 mr-5 p-2">
           <LuTicketPercent className="text-5xl mb-2"/>
           <h1 className="text-lg">Browse</h1>
-          <p className="text-zinc-400 text-sm">Browse vouchers</p>
+          <p className="text-zinc-400 text-sm w-20">Browse vouchers</p>
         </button>
       </div>
         
