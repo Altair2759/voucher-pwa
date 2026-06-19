@@ -6,6 +6,14 @@ const STORE_NAME = "vouchers"
 export function connectDatabase(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DATABASE_NAME, DATABASE_VERSION);
+const DB_NAME = 'voucher-pwa-db';
+const DB_VERSION = 1;
+
+export const REDEEMED_VOUCHERS_STORE = 'redeemed-vouchers';
+
+export function openVoucherDB(): Promise<IDBDatabase> {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(DB_NAME, DB_VERSION);
 
     request.onupgradeneeded = () => {
       const db = request.result;
@@ -20,6 +28,10 @@ export function connectDatabase(): Promise<IDBDatabase> {
         db.createObjectStore("history", {
           keyPath: "id",
           autoIncrement: true,});
+      if (!db.objectStoreNames.contains(REDEEMED_VOUCHERS_STORE)) {
+        db.createObjectStore(REDEEMED_VOUCHERS_STORE, {
+          keyPath: 'id',
+        });
       }
     };
 
