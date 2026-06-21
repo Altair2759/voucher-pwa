@@ -1,125 +1,157 @@
+// Voucher detail page made by Tshiamo
+
 "use client";
 
-import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { isVoucherRedeemed, saveRedeemedVoucher } from "@/lib/indexedDB/redeemed-vouchers";
 import { vouchers } from "@/lib/types/voucher";
 
-export default function VouchersPage() {
+
+export default function VoucherDetailPage() {
+  // get voucher ID from URL parameters
+  const params = useParams<{ id: string }>();
+  const voucherId = Number(params?.id);
+  // find matching vouchers
+  const voucher = vouchers.find((item) => item.id === voucherId);
+  const [isRedeemed, setIsRedeemed] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  // check redemption status when page loads
+  useEffect(() => {
+    let isMounted = true;
+
+    const checkRedeemedStatus = async () => {
+      // Stops loading if voucher is not found
+      if (!voucher) {
+        if (isMounted) setLoading(false);
+        return;
+      }
+
+      // Check if voucher is in redeemed voucher storage
+      const redeemed = await isVoucherRedeemed(voucher.id);
+      if (isMounted) {
+        setIsRedeemed(redeemed);
+        setLoading(false);
+      }
+    };
+
+    checkRedeemedStatus();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [voucher]);
+
+  // Display a message if voucher cannot be found
+  if (!voucher) {
+    return (
+      <div style={{ padding: "30px" }}>
+        <p>Voucher not found.</p>
+        <button
+          type="button"
+          onClick={() => {location.href = "/vouchers"}}
+          style={{ marginTop: "12px" }}
+        >
+          Back to vouchers
+        </button>
+      </div>
+    );
+  }
+
+  const handleRedeem = async () => {
+    if (isRedeemed || loading) return;
+    // Save voucher information to IndexedDB
+    try {
+      await saveRedeemedVoucher({
+        id: voucher.id,
+        title: voucher.title,
+        description: `${voucher.company} • ${voucher.category}`,
+        value: `R${voucher.value}`,
+        redeemedAt: new Date().toLocaleString(),
+      });
+      // update UI to show redeemed status
+      setIsRedeemed(true);
+    } catch (error) {
+      console.error("Failed to redeem voucher", error);
+    }
+  };
+
   return (
     <div
       style={{
-        padding: "30px",
         minHeight: "100vh",
-        backgroundColor: "#f5f7fa",
+        backgroundColor: "#ffffff",
+        padding: "30px",
       }}
     >
-      <h1
+      <button
+        type="button"
+        onClick={() => {location.href = "/vouchers"}}
         style={{
-          textAlign: "center",
-          marginBottom: "30px",
-          fontSize: "2.5rem",
+          marginBottom: "16px",
+          padding: "10px 16px",
+          border: "none",
+          borderRadius: "8px",
+          backgroundColor: "#000000",
+          color: "#ffffff",
+          cursor: "pointer",
         }}
       >
-        Available Vouchers
-      </h1>
+        ← Back
+      </button>
 
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-          gap: "20px",
+          maxWidth: "720px",
+          backgroundColor: "#d2d2d26f",
+          borderRadius: "16px",
+          padding: "24px",
+          boxShadow: "0 6px 18px rgba(0,0,0,0.08)",
         }}
       >
-        {vouchers.map((voucher) => (
-          <div
-            key={voucher.title}
+        <h1 style={{ fontSize: "2rem", marginBottom: "10px" }}>
+          {voucher.title}
+        </h1>
+        <p style={{ color: "#4b5563", marginBottom: "8px" }}>
+          <strong>Company:</strong> {voucher.company}
+        </p>
+        <p style={{ color: "#4b5563", marginBottom: "8px" }}>
+          <strong>Category:</strong> {voucher.category}
+        </p>
+        <p style={{ color: "#4b5563", marginBottom: "8px" }}>
+          <strong>Value:</strong> R{voucher.value}
+        </p>
+        <p style={{ color: "#4b5563", marginBottom: "8px" }}>
+          <strong>Quantity:</strong> {voucher.quantity}
+        </p>
+        <p style={{ color: "#4b5563", marginBottom: "8px" }}>
+          <strong>Expires:</strong> {voucher.expiryDate}
+        </p>
+        <p style={{ color: "#4b5563", marginBottom: "18px" }}>
+          <strong>Code:</strong> {voucher.code}
+        </p>
+
+        {isRedeemed ? (
+          <p style={{ color: "#16a34a", fontWeight: 700 }}>
+            Voucher redeemed successfully.
+          </p>
+        ) : (
+          <button
+            type="button"
+            onClick={handleRedeem}
             style={{
-              background: "#fff",
-              borderRadius: "16px",
-              padding: "20px",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-              transition: "all 0.3s ease",
+              padding: "12px 18px",
+              border: "none",
+              borderRadius: "8px",
+              backgroundColor: "#16a34a",
+              color: "#fff",
               cursor: "pointer",
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-8px)";
-              e.currentTarget.style.boxShadow =
-                "0 10px 25px rgba(0,0,0,0.15)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow =
-                "0 4px 12px rgba(0,0,0,0.1)";
-            }}
           >
-            <h2
-              style={{
-                marginBottom: "10px",
-                color: "#1f2937",
-              }}
-            >
-              {voucher.title}
-            </h2>
-
-            <p>
-              <strong>Company:</strong> {voucher.company}
-            </p>
-
-            <p>
-              <strong>Category:</strong> {voucher.category}
-            </p>
-
-            <p>
-              <strong>Value:</strong> R{voucher.value}
-            </p>
-
-            <p>
-              <strong>Quantity:</strong> {voucher.quantity}
-            </p>
-
-            <p>
-              <strong>Expires:</strong> {voucher.expiryDate}
-            </p>
-
-            <div
-              style={{
-                display: "flex",
-                gap: "10px",
-                marginTop: "20px",
-              }}
-            >
-              <Link href={`/vouchers/${voucher.id}`}>
-                <button
-                  style={{
-                    padding: "10px 16px",
-                    border: "none",
-                    borderRadius: "8px",
-                    backgroundColor: "#2563eb",
-                    color: "white",
-                    cursor: "pointer",
-                  }}
-                >
-                  View Details
-                </button>
-              </Link>
-
-              <button
-                style={{
-                  padding: "10px 16px",
-                  border: "none",
-                  borderRadius: "8px",
-                  backgroundColor: "#16a34a",
-                  color: "white",
-                  cursor: "pointer",
-                }}
-                onClick={() =>
-                  alert(`Voucher "R{voucher.title}" redeemed!`)
-                }
-              >
-                Redeem
-              </button>
-            </div>
-          </div>
-        ))}
+            Redeem voucher
+          </button>
+        )}
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ import { styles } from "next/dist/client/components/styles/access-error-styles";
 const navItems = [
   { label: "Home", href: "/", icon: FaHome },
   { label: "Vouchers", href: "/vouchers", icon: LuTicketPercent },
-  { label: "Scan", href: "/redeem", icon: MdOutlineQrCodeScanner },
+  { label: "Scan", href: "/scanner", icon: MdOutlineQrCodeScanner },
   { label: "History", href: "/history", icon: FaHistory },
   { label: "Settings", href: "/settings", icon: IoSettingsOutline },
 ];

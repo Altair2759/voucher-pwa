@@ -1,29 +1,36 @@
+// Voucher card created by Ethan & Tshiamo
+
+"use client";
+
+
 type VoucherCardProps = {
+  id: number;
   title: string;
   description: string;
   expiry: string;
 };
 
 export default function VoucherCard({
+  id,
   title,
   description,
   expiry,
 }: VoucherCardProps) {
+  
+
   return (
     <div
       style={{
-        backgroundColor: "#ffffff",
-        border: "2px solid #2563eb",
+        backgroundColor: "#cfcfcf90",
         borderRadius: "16px",
         padding: "24px",
         marginBottom: "20px",
         boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
       }}
     >
-      {/* Voucher Title */}
       <h2
         style={{
-          color: "#2563eb",
+          color: "Black",
           fontSize: "28px",
           marginBottom: "12px",
         }}
@@ -31,10 +38,9 @@ export default function VoucherCard({
         {title}
       </h2>
 
-      {/* Voucher Description */}
       <p
         style={{
-          color: "#000000",
+          color: "#6b6b6b",
           fontSize: "18px",
           marginBottom: "12px",
         }}
@@ -42,7 +48,6 @@ export default function VoucherCard({
         {description}
       </p>
 
-      {/* Expiry Date */}
       <p
         style={{
           color: "#666666",
@@ -53,10 +58,10 @@ export default function VoucherCard({
         ⏰ Expires: {expiry}
       </p>
 
-      {/* Redeem Button */}
       <button
+        type="button"
         style={{
-          backgroundColor: "#2563eb",
+          backgroundColor: "black",
           color: "#ffffff",
           border: "none",
           borderRadius: "8px",
@@ -65,8 +70,9 @@ export default function VoucherCard({
           fontWeight: "bold",
           cursor: "pointer",
         }}
+        onClick={() => {location.href = `/vouchers/${id}`}}
       >
-        Redeem Voucher
+        View Voucher
       </button>
     </div>
   );
