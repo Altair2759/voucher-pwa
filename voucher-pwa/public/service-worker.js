@@ -1,3 +1,5 @@
+// Created by Mia
+
 //constants
 const STATIC_CACHE = "static-v1";
 const DATA_CACHE = "data-v1";
@@ -69,3 +71,23 @@ self.addEventListener("fetch", (event) => {//runs when app makes a network reque
     })
   );
 });//ending of the fetch handler
+
+// PUSH NOTIFICATIONS
+self.addEventListener("push", (event) => {
+ 
+  const data = event.data
+    ? event.data.json()
+    : {
+        title: "Voucher App",
+        body: "New voucher available!",
+      };
+ 
+  self.registration.showNotification(
+    data.title,
+    {
+      body: data.body,
+      icon: "/icon-192.png",
+    }
+  );
+ 
+});

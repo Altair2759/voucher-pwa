@@ -1,7 +1,6 @@
-import {
-  openVoucherDB,
-  REDEEMED_VOUCHERS_STORE,
-} from './db';
+// Vocuher redemption Store made by Tineille
+
+import { getRedeemedVouchers as readRedeemedVouchers, saveRedeemedVoucherRecord } from './db';
 
 export type RedeemedVoucher = {
   id: number;
@@ -11,50 +10,18 @@ export type RedeemedVoucher = {
   redeemedAt: string;
 };
 
-export async function saveRedeemedVoucher(
-  voucher: RedeemedVoucher
-): Promise<void> {
-  const db = await openVoucherDB();
-
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction(
-      REDEEMED_VOUCHERS_STORE,
-      'readwrite'
-    );
-
-    const store = transaction.objectStore(REDEEMED_VOUCHERS_STORE);
-
-    const request = store.put(voucher);
-
-    request.onsuccess = () => {
-      resolve();
-    };
-
-    request.onerror = () => {
-      reject(request.error);
-    };
-  });
+// Saves redeemed vouchers
+export async function saveRedeemedVoucher( voucher: RedeemedVoucher ): Promise<void> {
+  await saveRedeemedVoucherRecord(voucher);
 }
 
+// Retrieves redeemed vouchers
 export async function getRedeemedVouchers(): Promise<RedeemedVoucher[]> {
-  const db = await openVoucherDB();
+  return readRedeemedVouchers();
+}
 
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction(
-      REDEEMED_VOUCHERS_STORE,
-      'readonly'
-    );
-
-    const store = transaction.objectStore(REDEEMED_VOUCHERS_STORE);
-
-    const request = store.getAll();
-
-    request.onsuccess = () => {
-      resolve(request.result as RedeemedVoucher[]);
-    };
-
-    request.onerror = () => {
-      reject(request.error);
-    };
-  });
+// Check if voucher is redeemed or not redeemed
+export async function isVoucherRedeemed( voucherId: number ): Promise<boolean> {
+  const redeemedVouchers = await getRedeemedVouchers();
+  return redeemedVouchers.some((voucher) => voucher.id === voucherId);
 }

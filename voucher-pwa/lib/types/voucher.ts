@@ -1,3 +1,5 @@
+// Vouchers created by Ethan, Tshiamo, Tineille
+
 export interface Voucher {
   id: number;
   code: string;

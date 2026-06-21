@@ -1,4 +1,6 @@
-//top section
+// Install Prompt component created by Mia
+
+
 "use client";
 
 import { useEffect, useState } from "react";
