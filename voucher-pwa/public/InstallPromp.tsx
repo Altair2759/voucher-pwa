@@ -77,10 +77,10 @@ export default function InstallPrompt() {
       text-blue-600 font-semibold
       rounded-xl
       backdrop-blur-xl
-      bg-white/20
+      bg-blue-500/20
       border border-white/30
       shadow-lg
-      hover:bg-white/30
+      hover:bg-blue-500/30
       transition
       "//tailwind classes
     >
