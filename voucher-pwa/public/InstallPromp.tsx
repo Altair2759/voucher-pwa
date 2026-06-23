@@ -54,7 +54,7 @@ export default function InstallPrompt() {
         text-blue-600 font-semibold
         rounded-xl
         backdrop-blur-xl
-        bg-white/20
+        bg-green-500/20
         border border-white/30
         shadow-lg
         "
