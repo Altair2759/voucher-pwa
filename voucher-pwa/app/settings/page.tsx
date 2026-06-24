@@ -1,7 +1,30 @@
-// Settings page made by Everyone 
+// Settings page created by
+
 
 export default function SettingsPage() {
-    return (
-        <h1>Comming soon</h1>
-    );
+  return (
+    <div>
+      {/* Mia Section: Themes */}
+
+
+
+
+      {/* Crystal Section: Data management */}
+
+
+
+
+      {/* Bohlokoa Section: Notifications & vibrations */}
+
+
+
+
+
+      {/* Tineile Section: Info/About  */}
+
+
+
+
+    </div>
+  );
 }

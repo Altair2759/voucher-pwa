@@ -47,9 +47,9 @@ export default function InstallPrompt() {
   // If Firefox → show a helpful message instead of nothing
   if (isFirefox) {
     return (
-      <div
+      <button
         className="
-        fixed bottom-4 right-4
+        fixed top-1 right-4
         px-5 py-2
         text-blue-600 font-semibold
         rounded-xl
@@ -59,8 +59,8 @@ export default function InstallPrompt() {
         shadow-lg
         "
       >
-        Firefox does not support app installation. Use Chrome or Edge.
-      </div>
+        Install App
+      </button>
     );
   }
 
@@ -72,7 +72,7 @@ export default function InstallPrompt() {
     <button
       onClick={installApp}
       className="
-      fixed bottom-4 right-4
+      fixed top-1 right-4
       px-5 py-2
       text-blue-600 font-semibold
       rounded-xl
