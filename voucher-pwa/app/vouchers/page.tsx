@@ -6,40 +6,18 @@ import { vouchers } from "@/lib/types/voucher";
 export default function VouchersPage() {
   return (
     <div
-      style={{
-        backgroundColor: "#ffffff",
-        minHeight: "100vh",
-        padding: "30px",
-      }}
+      className="min-h-screen bg-zinc-100 dark:bg-slate-900 p-8 text-zinc-900 dark:text-slate-50"
     >
-      <h1
-        style={{
-          color: "Black",
-          textAlign: "center",
-          fontSize: "42px",
-          marginBottom: "10px",
-        }}
-      >
+      <h1 className="text-center text-4xl font-bold text-zinc-900 dark:text-slate-50 mb-2">
         Available Vouchers
       </h1>
 
-      <p
-        style={{
-          textAlign: "center",
-          color: "#7d7d7dd3",
-          marginBottom: "40px",
-          fontSize: "18px",
-        }}
-      >
+      <p className="text-center text-zinc-500 dark:text-slate-400 text-lg mb-10">
         Browse and redeem amazing deals
       </p>
 
       <div
-        style={{
-          maxWidth: "1000px",
-          margin: "0 auto",
-        }}
-      >
+        className="max-w-[1000px] mx-auto">
         {vouchers.map((voucher) => (
           <VoucherCard
             key={voucher.id}

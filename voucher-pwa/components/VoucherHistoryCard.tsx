@@ -14,77 +14,40 @@ export default function VoucherHistoryCard({
   redeemedAt,
 }: VoucherHistoryCardProps) {
   return (
-    <div
-      style={{
-        border: "1px solid #ffffff",
-        backgroundColor: "#e5e5e53b",
-        padding: "20px",
-        marginBottom: "20px",
-        borderRadius: "12px",
-        boxShadow: "0 0 8px rgba(30,58,138,0.25)",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: "16px",
-        }}
-      >
+    <div className="
+      bg-white dark:bg-slate-800
+      border border-slate-300 dark:border-slate-700
+      p-5 mb-5 rounded-xl shadow-md
+    ">
+
+{/*top row*/}
+      <div className="flex justify-between items-center gap-4">
         <div>
-          <h3
-            style={{
-              color: "#000000",
-              marginBottom: "10px",
-            }}
-          >
+          <h3 className="text-zinc-900 dark:text-slate-50 mb-2 font-semibold">
             {title}
           </h3>
 
-          <p
-            style={{
-              fontSize: "18px",
-              color: "#313131",
-              margin: 0,
-            }}
-          >
+          <p className="text-lg text-zinc-500 dark:text-slate-400 m-0">
             {description}
           </p>
         </div>
 
-        <div
-          style={{
-            fontSize: "24px",
-            fontWeight: "bold",
-            color: "#000000",
-            whiteSpace: "nowrap",
-          }}
-        >
+        <div className="text-2xl font-bold text-zinc-900 dark:text-slate-50 whitespace-nowrap">
           {value}
         </div>
       </div>
 
-      <div
-        style={{
-          display: "inline-block",
-          marginTop: "12px",
-          padding: "5px 12px",
-          borderRadius: "20px",
-          backgroundColor: "#0f172a",
-          border: "1px solid #22c55e",
-          color: "#22c55e",
-        }}
-      >
+{/*redeemed badge*/}
+      <div className="
+        inline-block mt-3 px-3 py-1 rounded-full
+        bg-indigo-600 dark:bg-emerald-500
+        text-white text-sm font-medium
+      ">
         ✓ Redeemed
       </div>
 
-      <p
-        style={{
-          marginTop: "12px",
-          color: "#94a3b8",
-        }}
-      >
+{/*redeemed date*/}
+      <p className="mt-3 text-zinc-500 dark:text-slate-400 text-sm">
         Redeemed: {redeemedAt}
       </p>
     </div>

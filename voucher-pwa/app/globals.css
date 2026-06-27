@@ -1,16 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
 }
 
 html {
   scroll-behavior: smooth;
 }
-
+/*Install the official Tailwind CSS IntelliSense extension that understands @apply*/
 body {
-  min-height: 100vh;
-  background-color: #f8fafc;
-  color: #0f172a;
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  @apply min-h-screen 
+    bg-zinc-100 text-zinc-900 
+    dark:bg-slate-900 dark:text-slate-50 
+    font-[var(--font-geist-sans)];
 }
+

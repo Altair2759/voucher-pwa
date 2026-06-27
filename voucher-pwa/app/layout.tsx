@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
+import {ThemeProvider} from "next-themes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,10 +34,19 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-screen bg-slate-50 text-slate-900">
+      <body className="
+          min-h-screen
+          bg-zinc-100 text-zinc-900
+          dark:bg-slate-900 dark:text-slate-50
+        "
+      >
         {/* Added Navbar to the layout of the pages */}
-        <div className="min-h-screen pb-20 md:pb-0"><Navbar />{children}</div>
-        
+        <ThemeProvider attribute="class" defaultTheme="system">
+          <div className="min-h-screen pb-20 md:pb-0">
+            <Navbar />
+            {children}
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

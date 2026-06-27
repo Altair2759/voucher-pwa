@@ -44,145 +44,64 @@ export default function HistoryPage() {
   });
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#ffffff",
-        color: "white",
-        padding: "20px",
-      }}
-    >
-      <div style={{ marginBottom: "30px" }}>
-        <h1
-          style={{
-            fontSize: "36px",
-            color: "#000000",
-            marginBottom: "5px",
-          }}
-        >
+    <div className="min-h-screen bg-zinc-100 dark:bg-slate-900 text-zinc-900 dark:text-slate-50 p-5">
+      
+      {/* Page Header */}
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold text-zinc-900 dark:text-slate-50 mb-1">
           Redemption History
         </h1>
-
-        <p
-          style={{
-            color: "#94a3b8",
-            fontSize: "14px",
-          }}
-        >
+        <p className="text-zinc-500 dark:text-slate-400 text-sm">
           View all redeemed vouchers
         </p>
       </div>
 
-      <div style={{ marginBottom: "20px" }}>
+{/* Search bar */}
+      <div className="mb-6">
         <input
           type="text"
           placeholder="Search vouchers..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          style={{
-            width: "100%",
-            padding: "12px",
-            borderRadius: "10px",
-            border: "1px solid #ffffff",
-            backgroundColor: "#c9c9c964",
-            color: "black",
-            fontSize: "16px",
-            outline: "none",
-            boxSizing: "border-box",
-          }}
-        />
+          className="
+        w-full p-3 rounded-xl 
+        border border-slate-300 dark:border-slate-700 
+        bg-slate-100 dark:bg-slate-800 
+        text-zinc-900 dark:text-slate-50 
+        text-base outline-none
+      "
+    />
       </div>
 
+{/* Filter buttons */}
       <div
-        style={{
-          display: "flex",
-          gap: "10px",
-          marginBottom: "25px",
-          flexWrap: "wrap",
-        }}
+        className="flex gap-3 mb-6 flex-wrap">
+        {["All", "Discount", "Cashback", "Free"].map((category) => (
+        <button
+          key={category}
+          onClick={() => setFilter(category)}
+          className={`
+            px-4 py-2 rounded-full text-sm font-medium transition 
+            ${filter === category 
+              ? "bg-indigo-600 dark:bg-emerald-500 text-white"
+              : "bg-white dark:bg-slate-800 text-zinc-900 dark:text-slate-50 border border-slate-300 dark:border-slate-700"
+          }
+        `}
       >
-        <button
-          onClick={() => setFilter("All")}
-          style={{
-            padding: "8px 16px",
-            borderRadius: "20px",
-            border: "none",
-            backgroundColor: filter === "All" ? "#2563eb" : "#000000",
-            color: filter === "All" ? "white" : "#ffffff",
-            cursor: "pointer",
-          }}
-        >
-          All
+          {category ==="Free" ? "Free Items" : category}
         </button>
-
-        <button
-          onClick={() => setFilter("Discount")}
-          style={{
-            padding: "8px 16px",
-            borderRadius: "20px",
-            border: "1px solid #1e3a8a",
-            backgroundColor:
-              filter === "Discount" ? "#2563eb" : "#000000",
-            color: filter === "Discount" ? "white" : "#ffffff",
-            cursor: "pointer",
-          }}
-        >
-          Discounts
-        </button>
-
-        <button
-          onClick={() => setFilter("Cashback")}
-          style={{
-            padding: "8px 16px",
-            borderRadius: "20px",
-            border: "1px solid #1e3a8a",
-            backgroundColor:
-              filter === "Cashback" ? "#2563eb" : "#000000",
-            color: filter === "Cashback" ? "white" : "#ffffff",
-            cursor: "pointer",
-          }}
-        >
-          Cashback
-        </button>
-
-        <button
-          onClick={() => setFilter("Free")}
-          style={{
-            padding: "8px 16px",
-            borderRadius: "20px",
-            border: "1px solid #1e3a8a",
-            backgroundColor: filter === "Free" ? "#2563eb" : "#000000",
-            color: filter === "Free" ? "white" : "#ffffff",
-            cursor: "pointer",
-          }}
-        >
-          Free Items
-        </button>
+      ))}
       </div>
 
-      <div
-        style={{
-          backgroundColor: "#dadada55",
-          border: "1px solid #ffffff",
-          borderRadius: "12px",
-          padding: "20px",
-          marginBottom: "25px",
-          boxShadow: "0 0 8px rgba(255, 255, 255, 0.25)",
-        }}
-      >
-        <p style={{ color: "#000000" }}>Total Redeemed</p>
-
-        <h2
-          style={{
-            color: "#000000",
-            fontSize: "32px",
-            margin: 0,
-          }}
-        >
+{/*total redeemed vouchers */}
+      <div className="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl p-5 mb-6 shadow-md">
+    <p className="text-zinc-900 dark:text-slate-50">Total Redeemed</p>
+    <h2 className="text-3xl font-bold text-zinc-900 dark:text-slate-50">
           {redeemedVouchers.length} Vouchers
         </h2>
       </div>
 
+{/*voucher list */}
       {filteredVouchers.length > 0 ? (
         filteredVouchers.map((voucher) => (
           <VoucherHistoryCard
@@ -194,20 +113,9 @@ export default function HistoryPage() {
           />
         ))
       ) : (
-        <div
-          style={{
-            textAlign: "center",
-            padding: "40px",
-            border: "1px solid #1e3a8a",
-            borderRadius: "12px",
-            backgroundColor: "#030b1f",
-          }}
-        >
-          <h2 style={{ color: "#60a5fa" }}>No vouchers found</h2>
-
-          <p style={{ color: "#94a3b8" }}>
-            Try a different search term.
-          </p>
+        <div className="text-center p-10 border border-slate-300 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-800">
+          <h2 className="text-indigo-600 dark:text-emerald-500 text-xl font-semibold">No vouchers found</h2>
+          <p className="text-zinc-500 dark:text-slate-400">Try a different search term.</p>
         </div>
       )}
     </div>

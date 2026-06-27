@@ -19,58 +19,35 @@ export default function VoucherCard({
   
 
   return (
-    <div
-      style={{
-        backgroundColor: "#cfcfcf90",
-        borderRadius: "16px",
-        padding: "24px",
-        marginBottom: "20px",
-        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-      }}
+    <div className="
+        bg-white dark:bg-slate-800
+        border border-slate-300 dark:border-slate-700
+        rounded-2xl p-6 mb-5 shadow-lg
+      "
     >
-      <h2
-        style={{
-          color: "Black",
-          fontSize: "28px",
-          marginBottom: "12px",
-        }}
-      >
+
+      <h2 className="text-2xl font-bold text-zinc-900 dark:text-slate-50 mb-3">
         {title}
       </h2>
 
-      <p
-        style={{
-          color: "#6b6b6b",
-          fontSize: "18px",
-          marginBottom: "12px",
-        }}
-      >
+      <p className="text-lg text-zinc-500 dark:text-slate-400 mb-3">
         {description}
       </p>
 
-      <p
-        style={{
-          color: "#666666",
-          marginBottom: "18px",
-          fontSize: "15px",
-        }}
-      >
+      <p className="text-sm text-zinc-500 dark:text-slate-400 mb-4">
         ⏰ Expires: {expiry}
       </p>
 
       <button
         type="button"
-        style={{
-          backgroundColor: "black",
-          color: "#ffffff",
-          border: "none",
-          borderRadius: "8px",
-          padding: "12px 20px",
-          fontSize: "16px",
-          fontWeight: "bold",
-          cursor: "pointer",
-        }}
         onClick={() => {location.href = `/vouchers/${id}`}}
+        className="
+          bg-indigo-600 dark:bg-emerald-500
+          text-white rounded-lg px-5 py-3
+          text-base font-semibold
+          hover:bg-indigo-700 dark:hover:bg-emerald-600
+          transition
+        "
       >
         View Voucher
       </button>
