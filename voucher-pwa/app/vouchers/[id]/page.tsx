@@ -46,12 +46,18 @@ export default function VoucherDetailPage() {
   // Display a message if voucher cannot be found
   if (!voucher) {
     return (
-      <div style={{ padding: "30px" }}>
-        <p>Voucher not found.</p>
+      <div className="p-8 min-h-screen bg-zinc-100 dark:bg-slate-900 text-zinc-900 dark:text-slate-50">
+        <p className="text-lg">Voucher not found.</p>
         <button
           type="button"
-          onClick={() => {location.href = "/vouchers"}}
-          style={{ marginTop: "12px" }}
+          onClick={() => { location.href = "/vouchers" }}
+          className="
+            mt-4 px-4 py-2
+            bg-indigo-600 dark:bg-emerald-500
+            text-white rounded-lg font-semibold
+            hover:bg-indigo-700 dark:hover:bg-emerald-600
+            transition
+          "
         >
           Back to vouchers
         </button>
@@ -78,76 +84,73 @@ export default function VoucherDetailPage() {
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#ffffff",
-        padding: "30px",
-      }}
-    >
+    <div className="min-h-screen bg-zinc-100 dark:bg-slate-900 p-8 text-zinc-900 dark:text-slate-50">
+      
       <button
         type="button"
-        onClick={() => {location.href = "/vouchers"}}
-        style={{
-          marginBottom: "16px",
-          padding: "10px 16px",
-          border: "none",
-          borderRadius: "8px",
-          backgroundColor: "#000000",
-          color: "#ffffff",
-          cursor: "pointer",
-        }}
+        onClick={() => { location.href = "/vouchers" }}
+        className="
+          mb-6 px-4 py-2
+          bg-indigo-600 dark:bg-emerald-500
+          text-white rounded-lg font-semibold
+          hover:bg-indigo-700 dark:hover:bg-emerald-600
+          transition
+        "
       >
         ← Back
       </button>
 
       <div
-        style={{
-          maxWidth: "720px",
-          backgroundColor: "#d2d2d26f",
-          borderRadius: "16px",
-          padding: "24px",
-          boxShadow: "0 6px 18px rgba(0,0,0,0.08)",
-        }}
+        className="
+          max-w-[720px] mx-auto
+          bg-white dark:bg-slate-800
+          border border-slate-300 dark:border-slate-700
+          rounded-2xl p-6 shadow-lg
+        "
       >
-        <h1 style={{ fontSize: "2rem", marginBottom: "10px" }}>
+        <h1 className="text-3xl font-bold mb-3 text-zinc-900 dark:text-slate-50">
           {voucher.title}
         </h1>
-        <p style={{ color: "#4b5563", marginBottom: "8px" }}>
+
+        <p className="text-zinc-500 dark:text-slate-400 mb-2">
           <strong>Company:</strong> {voucher.company}
         </p>
-        <p style={{ color: "#4b5563", marginBottom: "8px" }}>
+
+        <p className="text-zinc-500 dark:text-slate-400 mb-2">
           <strong>Category:</strong> {voucher.category}
         </p>
-        <p style={{ color: "#4b5563", marginBottom: "8px" }}>
+
+        <p className="text-zinc-500 dark:text-slate-400 mb-2">
           <strong>Value:</strong> R{voucher.value}
         </p>
-        <p style={{ color: "#4b5563", marginBottom: "8px" }}>
+
+        <p className="text-zinc-500 dark:text-slate-400 mb-2">
           <strong>Quantity:</strong> {voucher.quantity}
         </p>
-        <p style={{ color: "#4b5563", marginBottom: "8px" }}>
+
+        <p className="text-zinc-500 dark:text-slate-400 mb-2">
           <strong>Expires:</strong> {voucher.expiryDate}
         </p>
-        <p style={{ color: "#4b5563", marginBottom: "18px" }}>
+
+        <p className="text-zinc-500 dark:text-slate-400 mb-6">
           <strong>Code:</strong> {voucher.code}
         </p>
 
         {isRedeemed ? (
-          <p style={{ color: "#16a34a", fontWeight: 700 }}>
+          <p className="text-emerald-500 font-semibold">
             Voucher redeemed successfully.
           </p>
         ) : (
           <button
             type="button"
             onClick={handleRedeem}
-            style={{
-              padding: "12px 18px",
-              border: "none",
-              borderRadius: "8px",
-              backgroundColor: "#16a34a",
-              color: "#fff",
-              cursor: "pointer",
-            }}
+            className="
+              px-5 py-3
+              bg-indigo-600 dark:bg-emerald-500
+              text-white rounded-lg font-semibold
+              hover:bg-indigo-700 dark:hover:bg-emerald-600
+              transition
+            "
           >
             Redeem voucher
           </button>

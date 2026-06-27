@@ -59,14 +59,11 @@ const QRScanner: React.FC<QRScannerProps> = ({
   }, [onScanSuccess]);
  
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center items-center min-h-[60vh]">
  
       <div
         id="reader"
-        style={{
-          width: "100%",
-          maxWidth: "400px",
-        }}
+        className="w-full max-w-[400px] border border-slate-300 dark:border-slate-700 rounded-xl shadow-md bg-slate-100 dark:bg-slate-800 p-4"
       />
  
     </div>
