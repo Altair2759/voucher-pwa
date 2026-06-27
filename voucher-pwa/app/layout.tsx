@@ -32,22 +32,23 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="
-          min-h-screen
-          bg-zinc-100 text-zinc-900
-          dark:bg-slate-900 dark:text-slate-50
-        "
-      >
+      <ThemeProvider attribute="class" defaultTheme="system">
+        <body className="
+            min-h-screen
+            bg-zinc-100 text-zinc-900
+            dark:bg-slate-900 dark:text-slate-50
+        ">
         {/* Added Navbar to the layout of the pages */}
-        <ThemeProvider attribute="class" defaultTheme="system">
+        
           <div className="min-h-screen pb-20 md:pb-0">
             <Navbar />
             {children}
           </div>
-        </ThemeProvider>
-      </body>
+        </body>
+      </ThemeProvider>
     </html>
   );
 }
