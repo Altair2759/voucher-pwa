@@ -35,20 +35,20 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <ThemeProvider attribute="class" defaultTheme="system">
         <body className="
             min-h-screen
             bg-zinc-100 text-zinc-900
             dark:bg-slate-900 dark:text-slate-50
         ">
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         {/* Added Navbar to the layout of the pages */}
         
           <div className="min-h-screen pb-20 md:pb-0">
             <Navbar />
             {children}
           </div>
+          </ThemeProvider>
         </body>
-      </ThemeProvider>
     </html>
   );
 }
