@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { isVoucherRedeemed, saveRedeemedVoucher } from "@/lib/indexedDB/redeemed-vouchers";
 import { vouchers } from "@/lib/types/voucher";
+import VoucherVoiceReader from "@/components/VoucherVoiceReader"; // added for  Whisper Mode
 
 
 export default function VoucherDetailPage() {
@@ -17,6 +18,16 @@ export default function VoucherDetailPage() {
   const [isRedeemed, setIsRedeemed] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const [showWhisperMode, setShowWhisperMode] = useState(() => {
+    if (typeof window === "undefined") {
+      return true;
+    }
+
+    const saved = localStorage.getItem("showWhisperMode");
+
+    return saved !== null ? JSON.parse(saved) : true;
+  });
+
   // check redemption status when page loads
   useEffect(() => {
     let isMounted = true;
@@ -27,6 +38,7 @@ export default function VoucherDetailPage() {
         if (isMounted) setLoading(false);
         return;
       }
+
 
       // Check if voucher is in redeemed voucher storage
       const redeemed = await isVoucherRedeemed(voucher.id);
@@ -43,6 +55,7 @@ export default function VoucherDetailPage() {
     };
   }, [voucher]);
 
+
   // Display a message if voucher cannot be found
   if (!voucher) {
     return (
@@ -50,7 +63,7 @@ export default function VoucherDetailPage() {
         <p>Voucher not found.</p>
         <button
           type="button"
-          onClick={() => {location.href = "/vouchers"}}
+          onClick={() => { location.href = "/vouchers" }}
           style={{ marginTop: "12px" }}
         >
           Back to vouchers
@@ -70,6 +83,17 @@ export default function VoucherDetailPage() {
         value: `R${voucher.value}`,
         redeemedAt: new Date().toLocaleString(),
       });
+
+      // Check if vibration is enabled in Settings
+      const vibrationEnabled = JSON.parse(
+        localStorage.getItem("vibrationEnabled") ?? "true"
+      );
+
+      // Vibrate if the browser supports it and the user enabled it
+      if (vibrationEnabled && "vibrate" in navigator) {
+        navigator.vibrate([200, 100, 200]);
+      }
+
       // update UI to show redeemed status
       setIsRedeemed(true);
     } catch (error) {
@@ -87,7 +111,7 @@ export default function VoucherDetailPage() {
     >
       <button
         type="button"
-        onClick={() => {location.href = "/vouchers"}}
+        onClick={() => { location.href = "/vouchers" }}
         style={{
           marginBottom: "16px",
           padding: "10px 16px",
@@ -113,6 +137,9 @@ export default function VoucherDetailPage() {
         <h1 style={{ fontSize: "2rem", marginBottom: "10px" }}>
           {voucher.title}
         </h1>
+        <p>
+          Whisper Mode: {showWhisperMode ? "ON" : "OFF"}
+        </p>
         <p style={{ color: "#4b5563", marginBottom: "8px" }}>
           <strong>Company:</strong> {voucher.company}
         </p>
@@ -131,6 +158,21 @@ export default function VoucherDetailPage() {
         <p style={{ color: "#4b5563", marginBottom: "18px" }}>
           <strong>Code:</strong> {voucher.code}
         </p>
+
+
+        {showWhisperMode && (
+          <VoucherVoiceReader
+            text={`
+        Voucher: ${voucher.title}.
+        Company: ${voucher.company}.
+        Category: ${voucher.category}.
+        Value: R${voucher.value}.
+        Quantity available: ${voucher.quantity}.
+        Expires on ${voucher.expiryDate}.
+        Voucher code is ${voucher.code}.
+    `}
+          />
+        )}
 
         {isRedeemed ? (
           <p style={{ color: "#16a34a", fontWeight: 700 }}>
