@@ -34,24 +34,24 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-        <body className="
-            min-h-screen
-            bg-zinc-100 text-zinc-900
-            dark:bg-slate-900 dark:text-slate-50
-        ">
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        {/* Added Navbar to the layout of the pages */}
-        
-          <div className="min-h-screen pb-20 md:pb-0">
-            <Navbar />
-            {children}
-          </div>
-          </ThemeProvider>
-        </body>
-    </html>
+  lang="en"
+  suppressHydrationWarning
+  className={`
+    ${geistSans.variable} 
+    ${geistMono.variable} 
+    h-full antialiased
+    bg-zinc-100 text-zinc-900
+    dark:bg-slate-900 dark:text-slate-50
+  `}
+>
+  <body className="min-h-screen">
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <div className="min-h-screen pb-20 md:pb-0">
+        <Navbar />
+        {children}
+      </div>
+    </ThemeProvider>
+  </body>
+</html>
   );
 }
