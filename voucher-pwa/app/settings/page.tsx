@@ -1,7 +1,7 @@
-"use client";
-import { useTheme } from "next-themes";
+// Settings Page made by Everyone
 
 export default function SettingsPage() {
+<<<<<<< HEAD
   const { theme, setTheme } = useTheme();
   return (
     <div className="min-h-screen bg-zinc-100 dark:bg-slate-900 p-4 text-zinc-900 dark:text-slate-50 space-y-8">
@@ -133,3 +133,131 @@ export default function SettingsPage() {
     </div>
   );
 }
+=======
+  const [theme, setTheme] = useState("system");
+  const [notifications, setNotifications] = useState(true);
+
+  const clearHistory = () => {
+    if (confirm("Clear all history? This cannot be undone.")) {
+      console.log("History cleared");
+    }
+  };
+
+  const exportData = () => {
+    console.log("Exporting data...");
+  };
+
+  const selectiveDelete = () => {
+    console.log("Selective delete triggered");
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-black text-gray-900 dark:text-white p-6">
+      
+      {/* HEADER */}
+      <h1 className="text-2xl font-bold">Settings</h1>
+      <p className="text-sm text-gray-500 mt-1">
+        Manage your app preferences
+      </p>
+
+      {/* ACCOUNT */}
+      <Section title="Account">
+        <Item label="Profile" onClick={() => console.log("Go to profile")} />
+        <Item label="Edit Details" onClick={() => console.log("Edit details")} />
+      </Section>
+
+      {/* PREFERENCES */}
+      <Section title="Preferences">
+        <div className="flex justify-between items-center py-3">
+          <span>Theme</span>
+          <select
+            value={theme}
+            onChange={(e) => setTheme(e.target.value)}
+            className="bg-white dark:bg-gray-800 border rounded px-2 py-1"
+          >
+            <option value="system">System</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+
+        <div className="flex justify-between items-center py-3">
+          <span>Notifications</span>
+          <input
+            type="checkbox"
+            checked={notifications}
+            onChange={() => setNotifications(!notifications)}
+          />
+        </div>
+      </Section>
+
+      {/* DATA MANAGEMENT */}
+      <Section title="Data Management">
+        <Item label="Clear History" onClick={clearHistory} danger />
+        <Item label="Selective Delete" onClick={selectiveDelete} />
+        <Item label="Export Data" onClick={exportData} />
+      </Section>
+
+      {/* SUPPORT */}
+      <Section title="Support">
+        <Item label="Help Center" onClick={() => console.log("Help")} />
+        <Item label="Contact Us" onClick={() => console.log("Contact")} />
+      </Section>
+
+      {/* ABOUT */}
+      <Section title="About">
+        <div className="py-3 border-b border-gray-200 dark:border-gray-800">
+          <span className="block">App Version</span>
+          <span className="text-sm text-gray-500">1.0.0</span>
+        </div>
+
+        <div className="py-3">
+          <span className="text-sm text-gray-400">
+            Changelog coming soon
+          </span>
+        </div>
+      </Section>
+    </div>
+  );
+}
+
+/* ---------- SECTION WRAPPER ---------- */
+function Section({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="mt-6 bg-white dark:bg-gray-900 rounded-lg shadow p-4">
+      <h2 className="text-sm font-semibold text-gray-500 mb-2 uppercase">
+        {title}
+      </h2>
+      <div>{children}</div>
+    </div>
+  );
+}
+
+/* ---------- ITEM ROW ---------- */
+function Item({
+  label,
+  onClick,
+  danger,
+}: {
+  label: string;
+  onClick: () => void;
+  danger?: boolean;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`w-full text-left py-3 border-b border-gray-200 dark:border-gray-800 last:border-none ${
+        danger ? "text-red-500" : ""
+      }`}
+    >
+      {label}
+    </button>
+  );
+}
+>>>>>>> c9ed62c (Fix setting layout)
