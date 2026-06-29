@@ -36,18 +36,7 @@ export default function SettingsPage() {
             Dark
           </button>
 
-          <button
-            onClick={() => setTheme("system")}
-            className="
-              px-4 py-2 rounded-lg
-              bg-indigo-600 dark:bg-emerald-500
-              text-white font-medium
-              hover:bg-indigo-700 dark:hover:bg-emerald-600
-              transition
-            "
-          >
-            System
-          </button>
+        
         </div>
       </section>
 
