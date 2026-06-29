@@ -1,3 +1,6 @@
+import "./globals.css";
+import "./tailwind.css";   
+
 // Page edited by REGGIE VAUDIN
 
 // Do not touch this page
