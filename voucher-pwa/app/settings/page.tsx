@@ -35,6 +35,22 @@ export default function SettingsPage() {
           >
             Dark
           </button>
+          <button
+  onClick={() => {
+    localStorage.removeItem("theme");
+    window.location.reload();
+  }}
+  className="
+    px-4 py-2 rounded-lg
+    bg-red-600 dark:bg-red-500
+    text-white font-medium
+    hover:bg-red-700 dark:hover:bg-red-600
+    transition
+  "
+>
+  Reset Theme
+</button>
+
 
         
         </div>
