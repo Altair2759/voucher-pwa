@@ -1,8 +1,60 @@
 "use client";
 import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
 
 export default function SettingsPage() {
   const { theme, setTheme } = useTheme();
+
+  const [history, setHistory] = useState<string[]>([]);
+
+  // Load history from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem("voucherHistory");
+    if (stored) {
+      setHistory(JSON.parse(stored));
+    }
+  }, []);
+
+  // Save history back to localStorage
+  const saveHistory = (newHistory: string[]) => {
+    setHistory(newHistory);
+    localStorage.setItem("voucherHistory", JSON.stringify(newHistory));
+  };
+
+  // Clear all history with confirm
+  const clearHistory = () => {
+    if (confirm("Are you sure you want to clear ALL history?")) {
+      saveHistory([]);
+      alert("History cleared successfully.");
+    }
+  };
+
+  // Delete selected item
+  const deleteItem = (index: number) => {
+    if (confirm("Delete this voucher from history?")) {
+      const newHistory = [...history];
+      newHistory.splice(index, 1);
+      saveHistory(newHistory);
+      alert("Voucher deleted.");
+    }
+  };
+
+  // Export history before clearing
+  const exportHistory = () => {
+    if (history.length === 0) {
+      alert("No history to export.");
+      return;
+    }
+    const blob = new Blob([JSON.stringify(history, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "voucher-history.json";
+    a.click();
+    URL.revokeObjectURL(url);
+    alert("History exported successfully.");
+  };
+
   return (
     <div className="min-h-screen bg-zinc-100 dark:bg-slate-900 p-4 text-zinc-900 dark:text-slate-50 space-y-8">
       {/* Mia Section: Themes */}
@@ -43,7 +95,38 @@ export default function SettingsPage() {
 
       {/* Crystal Section: Data management */}
 
+       <div className="p-6">
+      <h1 className="text-xl font-bold mb-4">Data Management</h1>
 
+      <div className="space-y-4">
+        <button onClick={clearHistory} className="bg-red-500 text-white px-4 py-2 rounded">
+          Clear All History
+        </button>
+
+        <button onClick={exportHistory} className="bg-blue-500 text-white px-4 py-2 rounded">
+          Export History
+        </button>
+
+        <h2 className="text-lg font-semibold mt-6">Voucher History</h2>
+        {history.length === 0 ? (
+          <p>No vouchers found.</p>
+        ) : (
+          <ul className="space-y-2">
+            {history.map((item, index) => (
+              <li key={index} className="flex justify-between items-center bg-gray-100 p-2 rounded">
+                <span>{item}</span>
+                <button
+                  onClick={() => deleteItem(index)}
+                  className="bg-yellow-500 text-white px-2 py-1 rounded"
+                >
+                  Delete
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
 
 
       {/* Bohlokoa Section: Notifications & vibrations */}
@@ -56,8 +139,7 @@ export default function SettingsPage() {
 
       <section className="mx-auto max-w-md space-y-4">
         <div>
-          <h1 className="text-3xl font-bold">Settings</h1>
-          <p className="text-gray-600">App information and support</p>
+          <h1 className="text-3xl font-bold">App information and support</h1>
         </div>
 
         <div className="rounded-xl border bg-white p-4 shadow">
