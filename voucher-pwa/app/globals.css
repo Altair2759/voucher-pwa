@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply min-h-screen font-[var(--font-geist-sans)];
+}
+
+
