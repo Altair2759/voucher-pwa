@@ -5,11 +5,10 @@ export default function SettingsPage() {
     </div>
   );
 }
+  
 
-
-
-
-// "use client";
+<!-- 
+//  "use client";
 // import { useTheme } from "next-themes";
 // import { useState, useEffect } from "react";
 
@@ -225,3 +224,4 @@ export default function SettingsPage() {
 //     </div>
 //   );
 // }
+ -->
