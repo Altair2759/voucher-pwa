@@ -28,8 +28,8 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="w-full rounded-b-lg dark:bg-slate-800 px-4 py-3 mb-15">
-        <h1 className="text-xl font-semibold tracking-wide dark:text-white">Voucher PWA</h1>
+      <div className="w-full rounded-b-lg bg-zinc-100 px-4 py-3 mb-15">
+        <h1 className="text-xl font-semibold tracking-wide text-black">Voucher PWA</h1>
       </div>
       {/* PWA Install Prompt */}
       <InstallPrompt />
@@ -48,20 +48,20 @@ export default function Home() {
       <div className="flex items-center mt-7">
         
         {/* QR Scan / Redeem Voucher */}
-        <button onClick={() => {location.href = "/scanner"}} className="flex flex-col justify-center items-center text-center min-w-25 dark:bg-slate-800 rounded-lg h-40 ml-5 p-2">
-          <MdOutlineQrCodeScanner className="text-5xl mb-2 dark:text-emerald-300"/>
+        <button onClick={() => {location.href = "/scanner"}} className="flex flex-col justify-center items-center text-center min-w-25 bg-zinc-100 rounded-lg h-40 ml-5 p-2">
+          <MdOutlineQrCodeScanner className="text-5xl mb-2"/>
           <h1 className="text-lg">Scan QR</h1>
           <p className="text-zinc-400 text-sm w-20">To Redeem</p>
         </button>
         {/* View voucher history */}
-        <button onClick={() => {location.href = "/history"}} className="flex flex-col justify-center items-center text-center min-w-25 dark:bg-slate-800 rounded-lg h-40 ml-5 px-2">
-          <FaHistory className="text-4xl mb-2 mt-2 dark:text-slate-400"/>
+        <button onClick={() => {location.href = "/history"}} className="flex flex-col justify-center items-center text-center min-w-25 bg-zinc-100 rounded-lg h-40 ml-5 px-2">
+          <FaHistory className="text-4xl mb-2 mt-2"/>
           <h1 className="text-lg">My History</h1>
           <p className="text-zinc-400 text-sm w-25">View redeemed vouchers</p>
         </button>
         {/* Browse vouchers */}
-        <button onClick={() => {location.href = "/vouchers"}} className="flex flex-col justify-center items-center text-center min-w-25 dark:bg-slate-800 rounded-lg h-40 ml-5 mr-5 p-2">
-          <LuTicketPercent className="text-5xl mb-2 dark:text-emerald-300"/>
+        <button onClick={() => {location.href = "/vouchers"}} className="flex flex-col justify-center items-center text-center min-w-25 bg-zinc-100 rounded-lg h-40 ml-5 mr-5 p-2">
+          <LuTicketPercent className="text-5xl mb-2"/>
           <h1 className="text-lg">Browse</h1>
           <p className="text-zinc-400 text-sm w-20">Browse vouchers</p>
         </button>
